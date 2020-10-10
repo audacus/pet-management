@@ -224,7 +224,10 @@ public class PetGUI {
 			valueID.setText("<no pets found>");
 		}
 
-		debug(new String[] { "--- load pets ---", "pets: " + pets.size() });
+		debug(new String[] {
+			"--- load pets ---",
+			"pets: " + pets.size()
+		});
 
 		resetFields();
 		loadNextPet();
@@ -361,7 +364,7 @@ public class PetGUI {
 		// set default value to prevent saving existing pets as new pets
 		addingNew = false;
 
-		// set look and feel to system
+		// set system look and feel
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e) {
