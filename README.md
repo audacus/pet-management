@@ -1,2 +1,2 @@
 # pet-management
-Example program to manage items over an map (non-persistent) or a file (persistent).
+Example program to manage items over a map (non-persistent) or a file (persistent).
