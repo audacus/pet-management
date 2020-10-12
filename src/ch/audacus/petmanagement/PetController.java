@@ -1,9 +1,9 @@
 package ch.audacus.petmanagement;
-import java.util.Map;
+import java.util.List;
 
 public interface PetController {
 
-	public Map<String, Pet> getAllPets();
+	public List<Pet> getAllPets();
 	
 	public String savePet(Pet pet, boolean addingNew);
 	

@@ -7,6 +7,7 @@ import java.util.EventListener;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
@@ -38,7 +39,7 @@ public class PetGUI {
 	private PetController controller;
 
 	// key -> ID, value -> Pet
-	private Map<String, Pet> pets;
+	private List<Pet> pets;
 	// contains all IDs
 	private List<String> order;
 	// index of current item
@@ -216,7 +217,10 @@ public class PetGUI {
 		// load all pets
 		pets = controller.getAllPets();
 		// setup ordering
-		order.addAll(pets.keySet());
+		// get all IDs from the pets
+		order.addAll(pets.stream()
+				.map(p -> p.getID())
+				.collect(Collectors.toCollection(LinkedList::new)));
 		if (order.size() > 0) {
 			next = order.get(0);
 			index = -1;
@@ -235,17 +239,24 @@ public class PetGUI {
 
 	private void loadPet(String ID) {
 		// get pet from ID
-		Pet pet = pets.get(ID);
+		Pet pet = pets.stream()
+				.filter(p -> p.getID() == ID)
+				.findFirst().orElse(null);
+		
+		// check if pet was found in list
+		if (pet != null) {
 
-		// set values
-		valueID.setText(pet.getID());
-		valueSpecies.setSelectedItem(pet.getSpecies());
-		valueGender.setSelectedItem(pet.getGender());
-		valueName.setText(pet.getName());
-
-		// update current pet (only needed if loading directly and not via previous or
-		// next buttons)
-		current = ID;
+			// set values
+			valueID.setText(pet.getID());
+			valueSpecies.setSelectedItem(pet.getSpecies());
+			valueGender.setSelectedItem(pet.getGender());
+			valueName.setText(pet.getName());
+	
+			// update current pet (only needed if loading directly and not via previous or next buttons)
+			current = ID;
+		} else {
+			System.err.println("could not find pet with ID: " + ID);
+		}
 
 		updateOrder();
 		updateButtons();

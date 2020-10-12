@@ -1,20 +1,21 @@
 package ch.audacus.petmanagement;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ObjectController implements PetController {
 
 	// key -> ID, value -> Pet
-	private Map<String, Pet> pets;
+	private List<Pet> pets;
 
 	public ObjectController() {
 		// use linked hash map to keep the ordering
-		pets = new LinkedHashMap<>();
+		pets = new LinkedList<>();
 	}
 
 	@Override
-	public Map<String, Pet> getAllPets() {
+	public List<Pet> getAllPets() {
 		return pets;
 	}
 
@@ -22,13 +23,26 @@ public class ObjectController implements PetController {
 	public String savePet(Pet pet, boolean addingNew) {
 		// overwrite or add new pet
 		String ID = pet.getID();
-		pets.put(ID, pet);
+		if (addingNew) {
+			// add pet to list
+			pets.add(pet);
+		} else {
+			// search for pet with ID of given pet and replace it
+			pets = pets.stream().map(p -> {
+				if (p.getID() == ID) {
+					p = pet;
+				}
+				return p;
+			}).collect(Collectors.toCollection(LinkedList::new));
+		}
 
 		return ID;
 	}
 
 	@Override
 	public void deletePet(String ID) {
-		pets.remove(ID);
+		pets = pets.stream()
+				.filter(p -> p.getID() != ID)
+				.collect(Collectors.toCollection(LinkedList::new));
 	}
 }
