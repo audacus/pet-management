@@ -3,10 +3,9 @@ package ch.audacus.petmanagement;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.swing.AbstractButton;
@@ -38,10 +37,9 @@ public class PetGUI {
 	// controller
 	private PetController controller;
 
-	// key -> ID, value -> Pet
-	private List<Pet> pets;
+	private ArrayList<Pet> pets;
 	// contains all IDs
-	private List<String> order;
+	private ArrayList<String> order;
 	// index of current item
 	private int index;
 	// flag if adding new pet
@@ -371,7 +369,7 @@ public class PetGUI {
 
 	private void init() {
 		// initialize order to check size on layout building
-		order = new LinkedList<>();
+		order = new ArrayList<>();
 		// set default value to prevent saving existing pets as new pets
 		addingNew = false;
 

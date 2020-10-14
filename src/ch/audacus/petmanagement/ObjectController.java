@@ -1,21 +1,18 @@
 package ch.audacus.petmanagement;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class ObjectController implements PetController {
 
-	// key -> ID, value -> Pet
-	private List<Pet> pets;
+	private ArrayList<Pet> pets;
 
 	public ObjectController() {
-		// use linked hash map to keep the ordering
-		pets = new LinkedList<>();
+		pets = new ArrayList<>();
 	}
 
 	@Override
-	public List<Pet> getAllPets() {
+	public ArrayList<Pet> getAllPets() {
 		return pets;
 	}
 
@@ -33,7 +30,7 @@ public class ObjectController implements PetController {
 					p = pet;
 				}
 				return p;
-			}).collect(Collectors.toCollection(LinkedList::new));
+			}).collect(Collectors.toCollection(ArrayList::new));
 		}
 
 		return ID;
@@ -43,6 +40,6 @@ public class ObjectController implements PetController {
 	public void deletePet(String ID) {
 		pets = pets.stream()
 				.filter(p -> p.getID() != ID)
-				.collect(Collectors.toCollection(LinkedList::new));
+				.collect(Collectors.toCollection(ArrayList::new));
 	}
 }

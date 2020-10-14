@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -18,10 +18,10 @@ public class FileController implements PetController {
 	private static final String FILE_PATH = "pets.txt";
 
 	@Override
-	public List<Pet> getAllPets() {
+	public ArrayList<Pet> getAllPets() {
 		// key -> ID, value -> Pet
 		// use linked hash map to keep the ordering
-		List<Pet> pets = new LinkedList<>();
+		ArrayList<Pet> pets = new ArrayList<>();
 
 		try {
 			Stream<String> lines = getFileContent();
@@ -67,7 +67,7 @@ public class FileController implements PetController {
 						l = pet.toString();
 					}
 					return l;
-				}).collect(Collectors.toCollection(LinkedList::new));
+				}).collect(Collectors.toCollection(ArrayList::new));
 			}
 	
 			// write file with altered lines
@@ -86,7 +86,7 @@ public class FileController implements PetController {
 			// filter out line that starts with given ID
 			write(getFileContent()
 					.filter(l -> !l.startsWith(ID))
-					.collect(Collectors.toCollection(LinkedList::new)));
+					.collect(Collectors.toCollection(ArrayList::new)));
 		} catch (IOException e) {
 			System.err.println("could not delete pet with ID: " + ID);
 			e.printStackTrace();

@@ -8,6 +8,6 @@ public class PetManagement {
 	
 	public static void main(String[] args) {
 		new PetManagement(new ObjectController());
-		new PetManagement(new FileController());
+//		new PetManagement(new FileController());
 	}
 }
