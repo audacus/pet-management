@@ -233,10 +233,24 @@ public class PetGUI {
 
 		resetFields();
 		loadNextPet();
+		
+		
+		
+		
+		// TODO: look here =D
+		// pets => countries | states ArrayList
+		/*
+		// create stream from list
+		pets = pets.stream()
+				// filter out lines that start with ID (all except that one)
+				.filter(p -> p.getID() != ID)
+				// create array list from filtered items
+				.collect(Collectors.toCollection(ArrayList::new));
+		*/
 	}
 
 	private void loadPet(String ID) {
-		// get pet from ID
+		// get pet from I
 		Pet pet = pets.stream()
 				.filter(p -> p.getID() == ID)
 				.findFirst().orElse(null);
@@ -307,6 +321,7 @@ public class PetGUI {
 			"gender: " + gender,
 			"name: " + name
 		});
+		
 
 		// create pet with or without generating new ID
 		if (addingNew) {
